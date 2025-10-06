@@ -1,0 +1,20 @@
+D001,Nguyen Van Bac,Nội tổng quát,0912345678
+D002,Tran Thi Chau,Nhi khoa,0987654321
+D003,Le Van Dung,Tim mạch,0978123456
+D004,Pham Thi Em,Da liễu,0909123456
+D005,Nguyen Van Giang,Thần kinh,0934567890
+D006,Hoang Thi Ha,Tai mũi họng,0945678901
+D007,Phan Van Hung,Răng hàm mặt,0956789012
+D008,Vu Thi Huyen,Nội tiết,0967890123
+D009,Do Van Khoa,Chấn thương chỉnh hình,0978901234
+D010,Nguyen Thi Lan,Phụ sản,0989012345
+D011,Tran Van Minh,Thận - tiết niệu,0990123456
+D012,Pham Thi Nga,Tim mạch,0901234567
+D013,Le Van Oanh,Da liễu,0913456789
+D014,Hoang Thi Phuong,Nhi khoa,0924567890
+D015,Nguyen Van Quang,Nội tổng quát,0935678901
+D016,Tran Thi Rinh,Nhãn khoa,0946789012
+D017,Pham Van Sang,Thần kinh,0957890123
+D018,Le Thi Thanh,Phụ sản,0968901234
+D019,Nguyen Van Toan,Tai mũi họng,0979012345
+D020,Hoang Thi Uyen,Nội tiết,0980123456
