@@ -1,0 +1,30 @@
+M001,Paracetamol,200,5000
+M002,Amoxicillin,150,7000
+M003,Vitamin C,300,2000
+M004,Ibuprofen,120,8000
+M005,Loratadine,90,6000
+M006,Cefalexin,110,10000
+M007,Panadol Extra,180,5500
+M008,Claritine,100,6500
+M009,Omeprazole,200,9000
+M010,Aspirin,130,4000
+M011,Dextromethorphan,140,3500
+M012,Prednisolone,150,7500
+M013,Metformin,190,9500
+M014,Atorvastatin,170,12000
+M015,Losartan,180,10000
+M016,Captopril,160,8000
+M017,Simvastatin,140,9000
+M018,Furosemide,200,7000
+M019,Naproxen,120,6500
+M020,Azithromycin,100,11000
+M021,Diclofenac,130,7500
+M022,Acetylcysteine,150,4000
+M023,Salbutamol,170,5000
+M024,Fluconazole,200,8500
+M025,Hydrocortisone,140,9500
+M026,Multivitamin,250,3000
+M027,Prednisone,100,8800
+M028,Clopidogrel,110,12000
+M029,Domperidone,130,4500
+M030,Metronidazole,160,6000
