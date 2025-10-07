@@ -2,6 +2,7 @@ import model.*;
 import service.*;
 import util.InputUtil;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ public class HospitalManagementSystem {
     private static final AppointmentService appointmentService = new AppointmentService();
     private static final BillingService billingService = new BillingService();
     private static final MedicineService medicineService = new MedicineService();
+    private static final PrescriptionService prescriptionService = new PrescriptionService();
 
     private static final Scanner sc = new Scanner(System.in);
 
@@ -26,6 +28,7 @@ public class HospitalManagementSystem {
                 case 3 -> appointmentMenu();
                 case 4 -> billingMenu();
                 case 5 -> medicineMenu();
+                case 6 -> prescriptionMenu();
                 case 0 -> {
                     System.out.println("👋 Tạm biệt!");
                     System.exit(0);
@@ -37,13 +40,14 @@ public class HospitalManagementSystem {
 
     private static void showMainMenu() {
         System.out.println("""
-                
+
                 ===== MENU CHÍNH =====
                 1. Quản lý Bệnh nhân
                 2. Quản lý Bác sĩ
                 3. Quản lý Lịch hẹn khám
                 4. Quản lý Hóa đơn
                 5. Quản lý Thuốc
+                6. Quản lý Đơn thuốc
                 0. Thoát
                 """);
     }
@@ -86,7 +90,8 @@ public class HospitalManagementSystem {
                 String id = InputUtil.inputString("Nhập ID bệnh nhân cần xóa: ");
                 patientService.deletePatient(id);
             }
-            case 0 -> {}
+            case 0 -> {
+            }
             default -> System.out.println("❌ Lựa chọn không hợp lệ!");
         }
     }
@@ -94,7 +99,7 @@ public class HospitalManagementSystem {
     // ==================== MODULE BÁC SĨ ====================
     private static void doctorMenu() {
         int choice;
-            do {
+        do {
             System.out.println("==== QUẢN LÝ BÁC SĨ ====");
             System.out.println("1. Thêm bác sĩ");
             System.out.println("2. Cập nhật bác sĩ");
@@ -130,6 +135,7 @@ public class HospitalManagementSystem {
             }
         } while (true);
     }
+
     // MENU CON: Tìm kiếm
     private static void searchMenu() {
         int choice;
@@ -151,13 +157,15 @@ public class HospitalManagementSystem {
                 case 1 -> doctorService.findByIdFromInput(sc);
                 case 2 -> doctorService.findByNameFromInput(sc);
                 case 3 -> doctorService.findBySpecialtyFromInput(sc);
-                case 0 -> { return; }
+                case 0 -> {
+                    return;
+                }
                 default -> System.out.println("Chọn sai.");
             }
         } while (true);
     }
 
-    //MENU CON: Lọc
+    // MENU CON: Lọc
     private static void filterMenu() {
         int choice;
         do {
@@ -200,16 +208,20 @@ public class HospitalManagementSystem {
                         System.out.println("Vui lòng nhập số nguyên!");
                     }
                 }
-                case 0 -> { return; }
+                case 0 -> {
+                    return;
+                }
                 default -> System.out.println("Chọn sai.");
             }
         } while (true);
     }
+
     // Export / Import
     private static void exportFile() {
         System.out.print("Nhập tên file (.txt): ");
         String fileName = sc.nextLine().trim();
-        if (!fileName.endsWith(".txt")) fileName += ".txt";
+        if (!fileName.endsWith(".txt"))
+            fileName += ".txt";
         if (doctorService.exportToFile(fileName))
             System.out.println("Export thành công vào " + fileName);
         else
@@ -219,7 +231,8 @@ public class HospitalManagementSystem {
     private static void importFile() {
         System.out.print("Nhập tên file cần import (.txt): ");
         String fileName = sc.nextLine().trim();
-        if (!fileName.endsWith(".txt")) fileName += ".txt";
+        if (!fileName.endsWith(".txt"))
+            fileName += ".txt";
         System.out.println(doctorService.importFromFile(fileName));
     }
 
@@ -246,7 +259,8 @@ public class HospitalManagementSystem {
                 String id = InputUtil.inputString("Nhập ID lịch hẹn cần hủy: ");
                 appointmentService.deleteAppointment(id);
             }
-            case 0 -> {}
+            case 0 -> {
+            }
             default -> System.out.println("❌ Lựa chọn không hợp lệ!");
         }
     }
@@ -254,16 +268,16 @@ public class HospitalManagementSystem {
     // ==================== MODULE HÓA ĐƠN ====================
     private static void billingMenu() {
         System.out.println("""
-            \n--- QUẢN LÝ HÓA ĐƠN ---
-            1. Tạo hóa đơn mới
-            2. Xem danh sách hóa đơn
-            3. Cập nhật hóa đơn
-            4. Xóa hóa đơn
-            5. Tìm kiếm hóa đơn
-            6. Lọc dữ liệu (theo tiền hoặc ngày)
-            7. Xuất dữ liệu ra file
-            0. Quay lại
-            """);
+                \n--- QUẢN LÝ HÓA ĐƠN ---
+                1. Tạo hóa đơn mới
+                2. Xem danh sách hóa đơn
+                3. Cập nhật hóa đơn
+                4. Xóa hóa đơn
+                5. Tìm kiếm hóa đơn
+                6. Lọc dữ liệu (theo tiền hoặc ngày)
+                7. Xuất dữ liệu ra file
+                0. Quay lại
+                """);
 
         int choice = InputUtil.inputInt("Chọn: ");
 
@@ -294,7 +308,8 @@ public class HospitalManagementSystem {
             case 5 -> billingService.search();
             case 6 -> billingService.filterBills();
             case 7 -> billingService.exportFile("data/export_billing.txt");
-            case 0 -> {}
+            case 0 -> {
+            }
             default -> System.out.println("❌ Lựa chọn không hợp lệ!");
         }
     }
@@ -323,8 +338,124 @@ public class HospitalManagementSystem {
                 int newQty = InputUtil.inputInt("Số lượng mới: ");
                 medicineService.updateQuantity(id, newQty);
             }
-            case 0 -> {}
+            case 0 -> {
+            }
             default -> System.out.println("❌ Lựa chọn không hợp lệ!");
         }
     }
+
+    // ==================== MODULE ĐƠN THUỐC ====================
+    // ==================== MODULE ĐƠN THUỐC ====================
+    private static void prescriptionMenu() {
+        System.out.println("""
+                \n--- 💊 QUẢN LÝ ĐƠN THUỐC ---
+                1. Thêm đơn thuốc
+                2. Xem tất cả đơn thuốc
+                3. Cập nhật đơn thuốc
+                4. Xóa đơn thuốc
+                5. Tìm kiếm đơn thuốc
+                0. Quay lại
+                """);
+
+        int choice = InputUtil.inputInt("Chọn: ");
+        switch (choice) {
+            case 1 -> { // 🟢 Thêm
+                String id = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+                String examId = InputUtil.inputString("Mã khám: ");
+                String medicineName = InputUtil.inputString("Tên thuốc: ");
+                LocalDate date = InputUtil.inputDate("Ngày kê (yyyy-MM-dd): ");
+                String dosage = InputUtil.inputString("Liều dùng: ");
+                String usage = InputUtil.inputString("Cách dùng: ");
+                int quantity = InputUtil.inputInt("Số lượng: ");
+                double price = InputUtil.inputDouble("Giá: ");
+                String status = InputUtil.inputString("Trạng thái (Đang dùng / Ngừng / Hoàn thành): ");
+                double total = quantity * price;
+
+                Prescription p = new Prescription(id, examId, medicineName, dosage, usage, status, quantity, price,
+                        total, date);
+
+                prescriptionService.addPrescription(p);
+            }
+
+            case 2 -> prescriptionService.viewAll(); // 🟢 Xem tất cả
+
+            case 3 -> { // 🟢 Cập nhật
+                String id = InputUtil.inputString("Nhập ID đơn thuốc cần cập nhật: ");
+                Prescription existing = prescriptionService.findById(id);
+                if (existing == null) {
+                    System.out.println("❌ Không tìm thấy đơn thuốc.");
+                } else {
+                    System.out.println("Thông tin hiện tại: " + existing);
+                    String newMedicineName = InputUtil.inputString("Tên thuốc mới (Enter để bỏ qua): ");
+                    String newDosage = InputUtil.inputString("Liều dùng mới (Enter để bỏ qua): ");
+                    String newUsage = InputUtil.inputString("Cách dùng mới (Enter để bỏ qua): ");
+                    String newStatus = InputUtil.inputString("Trạng thái mới (Enter để bỏ qua): ");
+                    int newQuantity = InputUtil.inputInt("Số lượng mới (0 = giữ nguyên): ");
+                    double newPrice = InputUtil.inputDouble("Giá mới (0 = giữ nguyên): ");
+                    LocalDate newDate = InputUtil.inputDate("Ngày mới (Enter để bỏ qua): ");
+
+                    prescriptionService.updatePrescription(id, newMedicineName, newDosage, newUsage, newStatus,
+                            newQuantity, newPrice, newDate);
+                }
+            }
+
+            case 4 -> { // 🟢 Xóa
+                String id = InputUtil.inputString("Nhập ID đơn thuốc cần xóa: ");
+                prescriptionService.deletePrescription(id);
+            }
+
+            case 5 -> { // 🟢 Tìm kiếm
+                searchPrescriptionMenu();
+            }
+
+            case 0 -> {
+            }
+
+            default -> System.out.println("❌ Lựa chọn không hợp lệ!");
+        }
+    }
+
+    // --- MENU CON: Tìm kiếm đơn thuốc ---
+    private static void searchPrescriptionMenu() {
+        System.out.println("""
+                \n--- 🔍 TÌM KIẾM ĐƠN THUỐC ---
+                1. Theo mã khám
+                2. Theo tên thuốc
+                3. Theo ngày kê
+                0. Quay lại
+                """);
+        int choice = InputUtil.inputInt("Chọn: ");
+        switch (choice) {
+            case 1 -> {
+                String examId = InputUtil.inputString("Nhập mã khám: ");
+                var list = prescriptionService.findByExamId(examId);
+                printPrescriptionSearchResult(list);
+            }
+            case 2 -> {
+                String name = InputUtil.inputString("Nhập tên thuốc: ");
+                var list = prescriptionService.findByMedicineName(name);
+                printPrescriptionSearchResult(list);
+            }
+            case 3 -> {
+                LocalDate date = InputUtil.inputDate("Nhập ngày (yyyy-MM-dd): ");
+                var list = prescriptionService.findByDate(date);
+                printPrescriptionSearchResult(list);
+            }
+            case 0 -> {
+            }
+            default -> System.out.println("❌ Lựa chọn không hợp lệ!");
+        }
+    }
+
+    private static void printPrescriptionSearchResult(java.util.List<Prescription> list) {
+        if (list.isEmpty()) {
+            System.out.println("❌ Không tìm thấy kết quả nào!");
+        } else {
+            System.out.println("✅ Kết quả tìm thấy: ");
+            for (Prescription p : list) {
+                System.out.println(p);
+            }
+        }
+    }
+
 }

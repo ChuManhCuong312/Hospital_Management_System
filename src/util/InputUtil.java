@@ -9,6 +9,7 @@ import model.Bill;
 
 public class InputUtil {
     private static final Scanner sc = new Scanner(System.in);
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static String inputString(String msg) {
         System.out.print(msg);
@@ -67,12 +68,24 @@ public class InputUtil {
         }
 
         if (!b.getPaymentStatus().equalsIgnoreCase("Đã") &&
-            !b.getPaymentStatus().equalsIgnoreCase("Chưa")) {
+                !b.getPaymentStatus().equalsIgnoreCase("Chưa")) {
             System.out.println("❌ Trạng thái thanh toán chỉ được là 'Đã' hoặc 'Chưa'.");
             return false;
         }
 
-        return true; 
+        return true;
+    }
+
+    public static LocalDate inputDate(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+            try {
+                return LocalDate.parse(input, DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Định dạng không hợp lệ! Hãy nhập theo dạng yyyy-MM-dd (vd: 2025-10-07)");
+            }
+        }
     }
 
 }
