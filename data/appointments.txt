@@ -1,0 +1,10 @@
+KB001,P001,D001,2025-10-02,somtethig,jsjsj,www,20000,done
+KB002,BN002,BS002,2025-10-02,Đau đầu,Migraine,Ibuprofen,300000.0,Hoàn thành
+KB003,BN003,BS003,2025-10-03,Mệt mỏi,Thiếu máu,Sắt + Vitamin B12,250000.0,Hoàn thành
+KB004,BN004,BS004,2025-10-04,Khó thở,Hen suyễn,Salbutamol,400000.0,Hoàn thành
+KB005,BN005,BS005,2025-10-05,Đau bụng,Viêm dạ dày,Omeprazole,350000.0,Hoàn thành
+KB006,BN006,BS006,2025-10-06,Đau khớp,Thoái hóa khớp,Glucosamine,500000.0,Hoàn thành
+KB007,BN007,BS007,2025-10-07,Ngứa da,Viêm da,Cetirizine,220000.0,Hoàn thành
+KB008,BN008,BS008,2025-10-08,Chóng mặt,Huyết áp thấp,Tăng cường nước + muối,280000.0,Hoàn thành
+KB009,BN009,BS009,2025-10-09,Đau họng,Viêm họng,Amoxicillin,320000.0,Hoàn thành
+KB010,BN010,BS010,2025-10-10,Mất ngủ,Rối loạn giấc ngủ,Melatonin,450000.0,Hoàn thành
