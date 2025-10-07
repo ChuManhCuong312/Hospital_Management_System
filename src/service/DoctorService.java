@@ -1,8 +1,8 @@
 package service;
 
 import model.Doctor;
-import validator.DoctorValidator;
-import utils.FileUtils;
+import util.DoctorValidator;
+import util.FileUtil;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -12,7 +12,7 @@ public class DoctorService {
 
     private static final Logger logger = Logger.getLogger(DoctorService.class.getName());
     private List<Doctor> doctors = new ArrayList<>();
-    private final String fileName = "doctors.txt";
+    private final String fileName = "data/doctors.txt";
 
     // CRUD
     public DoctorService() {
@@ -357,11 +357,11 @@ public class DoctorService {
     // file
     public boolean exportToFile(String exportFileName) {
         List<String> lines = doctors.stream().map(Doctor::toFileString).toList();
-        return FileUtils.writeLines(exportFileName, lines);
+        return FileUtil.writeFile(exportFileName, lines);
     }
 
     public String importFromFile(String importFileName) {
-        List<String> lines = FileUtils.readAllLines(importFileName);
+        List<String> lines = FileUtil.readFile(importFileName);
         if (lines.isEmpty()) return "File rỗng hoặc không tồn tại.";
 
         int added = 0, skipped = 0;
@@ -379,7 +379,7 @@ public class DoctorService {
 
     public void loadFromFile() {
         doctors.clear();
-        for (String line : FileUtils.readAllLines(fileName)) {
+        for (String line : FileUtil.readFile(fileName)) {
             Doctor d = Doctor.fromFileString(line);
             if (d != null) doctors.add(d);
         }
@@ -387,6 +387,6 @@ public class DoctorService {
 
     public boolean saveToFile() {
         List<String> lines = doctors.stream().map(Doctor::toFileString).toList();
-        return FileUtils.writeLines(fileName, lines);
+        return FileUtil.writeFile(fileName, lines);
     }
 }
