@@ -1,5 +1,8 @@
 package util;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -31,4 +34,18 @@ public class InputUtil {
             }
         }
     }
+
+    public static LocalDate inputDate(String message) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        while (true) {
+            System.out.print(message);
+            String input = sc.nextLine().trim();
+            try {
+                return LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("❌ Ngày không hợp lệ. Vui lòng nhập lại theo định dạng yyyy-MM-dd!");
+            }
+        }
+    }
+
 }
