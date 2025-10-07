@@ -1,6 +1,11 @@
 package util;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import model.Bill;
 
 public class InputUtil {
     private static final Scanner sc = new Scanner(System.in);
@@ -31,4 +36,43 @@ public class InputUtil {
             }
         }
     }
+
+    public static boolean validateBill(Bill b) {
+
+        if (b.getExaminationId() == null || b.getExaminationId().isBlank()) {
+            System.out.println("❌ Mã khám không được để trống!");
+            return false;
+        }
+        if (b.getPatientId() == null || b.getPatientId().isBlank()) {
+            System.out.println("❌ Mã bệnh nhân không được để trống!");
+            return false;
+        }
+
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate.parse(b.getDate(), fmt);
+        } catch (DateTimeParseException e) {
+            System.out.println("❌ Ngày lập không hợp lệ! Định dạng đúng: dd/MM/yyyy");
+            return false;
+        }
+
+        if (b.getExaminationFee() < 0 || b.getMedicineFee() < 0 || b.getDiscount() < 0) {
+            System.out.println("❌ Phí khám, tiền thuốc và giảm giá không được âm!");
+            return false;
+        }
+
+        if (b.getTotal() != b.getExaminationFee() + b.getMedicineFee() - b.getDiscount()) {
+            System.out.println("⚠️ Tổng tiền không khớp với các giá trị thành phần!");
+            return false;
+        }
+
+        if (!b.getPaymentStatus().equalsIgnoreCase("Đã") &&
+            !b.getPaymentStatus().equalsIgnoreCase("Chưa")) {
+            System.out.println("❌ Trạng thái thanh toán chỉ được là 'Đã' hoặc 'Chưa'.");
+            return false;
+        }
+
+        return true; 
+    }
+
 }
