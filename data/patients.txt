@@ -1,30 +1,20 @@
-P001,Nguyen Van A,35,Nam,Cảm cúm
-P002,Tran Thi B,28,Nữ,Đau đầu
-P003,Le Van C,45,Nam,Viêm họng
-P004,Pham Thi D,32,Nữ,Đau bụng
-P005,Nguyen Van E,60,Nam,Tăng huyết áp
-P006,Hoang Thi F,50,Nữ,Tiểu đường
-P007,Phan Van G,25,Nam,Dị ứng
-P008,Vu Thi H,40,Nữ,Đau dạ dày
-P009,Nguyen Van I,30,Nam,Cảm lạnh
-P010,Le Thi J,36,Nữ,Viêm phổi
-P011,Pham Van K,52,Nam,Béo phì
-P012,Tran Thi L,29,Nữ,Viêm da
-P013,Hoang Van M,48,Nam,Gút
-P014,Nguyen Thi N,33,Nữ,Thiếu máu
-P015,Do Van O,27,Nam,Viêm xoang
-P016,Nguyen Thi P,42,Nữ,Đau lưng
-P017,Tran Van Q,38,Nam,Viêm khớp
-P018,Le Thi R,24,Nữ,Mất ngủ
-P019,Pham Van S,55,Nam,Sỏi thận
-P020,Nguyen Thi T,47,Nữ,Đau vai gáy
-P021,Hoang Van U,31,Nam,Cảm lạnh
-P022,Tran Thi V,29,Nữ,Đau đầu
-P023,Le Van W,46,Nam,Viêm họng
-P024,Nguyen Thi X,41,Nữ,Đau bụng
-P025,Pham Van Y,50,Nam,Tiểu đường
-P026,Do Thi Z,26,Nữ,Cảm cúm
-P027,Nguyen Van AA,34,Nam,Viêm phổi
-P028,Tran Thi BB,39,Nữ,Đau khớp
-P029,Le Van CC,43,Nam,Đau thắt ngực
-P030,Pham Thi DD,37,Nữ,Căng thẳng thần kinh
+P001,Nguyễn Thị Mai,29,Nữ,Hà Nội,0911111111,Cảm cúm,B+,D001,Đang điều trị
+P002,Trần Văn Long,45,Nam,Hải Phòng,0922222222,Tăng huyết áp,A+,D002,Đang điều trị
+P003,Lê Thị Hồng,34,Nữ,Đà Nẵng,0933333333,Viêm da,B-,D003,Đang điều trị
+P004,Phạm Văn Nam,40,Nam,Hà Nội,0944444444,Sâu răng,O+,D004,Đã khỏi
+P005,Hoàng Thị Lan,32,Nữ,HCM,0955555555,Viêm phổi,B+,D005,Đang điều trị
+P006,Đặng Văn Quân,50,Nam,Hà Nội,0966666666,Đau dạ dày,A-,D006,Đang điều trị
+P007,Ngô Thị Thu,28,Nữ,Nghệ An,0977777777,Cận thị,O+,D007,Đang điều trị
+P008,Vũ Văn Bình,38,Nam,HCM,0988888888,Tiểu đường,B+,D008,Đang điều trị
+P009,Đoàn Thị Hạnh,31,Nữ,Hà Nam,0999999999,Thai kỳ,AB+,D009,Đang điều trị
+P010,Phan Văn Đức,5,Nam,Hà Nội,0900000000,Sốt virus,O+,D010,Đã khỏi
+P011,Trịnh Thị Hoa,37,Nữ,HCM,0901231231,Viêm họng,A+,D011,Đang điều trị
+P012,Nguyễn Văn Huy,42,Nam,Hà Nội,0902342342,Đau đầu,B-,D012,Đang theo dõi
+P013,Trần Thị Tuyết,51,Nữ,Hà Nam,0903453453,Thoái hóa khớp,B+,D013,Đang điều trị
+P014,Lê Văn Phúc,26,Nam,Đà Nẵng,0904564564,Mất ngủ,O-,D014,Đang điều trị
+P015,Phạm Thị Lan,34,Nữ,HCM,0905675675,Ung thư máu,A+,D015,Đang điều trị
+P016,Hoàng Văn Toàn,48,Nam,Hà Nội,0906786786,Đau bụng,B+,D016,Đang theo dõi
+P017,Đặng Thị Thảo,52,Nữ,HCM,0907897897,Khô mắt,O+,D017,Đang điều trị
+P018,Ngô Văn Dũng,44,Nam,Nam Định,0908908908,Đau ngực,B+,D018,Đang theo dõi
+P019,Vũ Thị Hạnh,36,Nữ,Hà Nội,0909019019,Viêm tai,O+,D019,Đang điều trị
+P020,Đoàn Văn Cường,30,Nam,HCM,0900120120,Kiểm tra thai kỳ,AB+,D020,Đang điều trị

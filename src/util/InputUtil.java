@@ -5,30 +5,47 @@ import java.util.Scanner;
 public class InputUtil {
     private static final Scanner sc = new Scanner(System.in);
 
-    public static String inputString(String msg) {
-        System.out.print(msg);
+    // Nhập chuỗi (trim)
+    public static String nhapChuoi(String message) {
+        System.out.print(message);
         return sc.nextLine().trim();
     }
 
-    public static int inputInt(String msg) {
+    // Nhập số nguyên an toàn
+    public static int nhapSoNguyen(String message) {
         while (true) {
             try {
-                System.out.print(msg);
-                return Integer.parseInt(sc.nextLine().trim());
+                System.out.print(message);
+                String line = sc.nextLine().trim();
+                if (line.isEmpty()) return -1; // allow caller to treat -1 as skip
+                return Integer.parseInt(line);
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số hợp lệ!");
+                System.out.println("Vui lòng nhập một số nguyên hợp lệ!");
             }
         }
     }
 
-    public static double inputDouble(String msg) {
+    // Nhập số thực
+    public static double nhapSoThuc(String message) {
         while (true) {
             try {
-                System.out.print(msg);
-                return Double.parseDouble(sc.nextLine().trim());
+                System.out.print(message);
+                String line = sc.nextLine().trim();
+                if (line.isEmpty()) return -1;
+                return Double.parseDouble(line);
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số thực hợp lệ!");
+                System.out.println("Vui lòng nhập một số thực hợp lệ!");
             }
+        }
+    }
+
+    // Nhập lựa chọn trong khoảng [min,max]
+    public static int nhapLuaChon(String message, int min, int max) {
+        int choice;
+        while (true) {
+            choice = nhapSoNguyen(message);
+            if (choice >= min && choice <= max) return choice;
+            System.out.printf("Lựa chọn không hợp lệ! (Chọn từ %d đến %d)%n", min, max);
         }
     }
 }

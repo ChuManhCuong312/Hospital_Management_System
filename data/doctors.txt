@@ -1,20 +1,20 @@
-D001,Nguyen Van Bac,Nội tổng quát,0912345678
-D002,Tran Thi Chau,Nhi khoa,0987654321
-D003,Le Van Dung,Tim mạch,0978123456
-D004,Pham Thi Em,Da liễu,0909123456
-D005,Nguyen Van Giang,Thần kinh,0934567890
-D006,Hoang Thi Ha,Tai mũi họng,0945678901
-D007,Phan Van Hung,Răng hàm mặt,0956789012
-D008,Vu Thi Huyen,Nội tiết,0967890123
-D009,Do Van Khoa,Chấn thương chỉnh hình,0978901234
-D010,Nguyen Thi Lan,Phụ sản,0989012345
-D011,Tran Van Minh,Thận - tiết niệu,0990123456
-D012,Pham Thi Nga,Tim mạch,0901234567
-D013,Le Van Oanh,Da liễu,0913456789
-D014,Hoang Thi Phuong,Nhi khoa,0924567890
-D015,Nguyen Van Quang,Nội tổng quát,0935678901
-D016,Tran Thi Rinh,Nhãn khoa,0946789012
-D017,Pham Van Sang,Thần kinh,0957890123
-D018,Le Thi Thanh,Phụ sản,0968901234
-D019,Nguyen Van Toan,Tai mũi họng,0979012345
-D020,Hoang Thi Uyen,Nội tiết,0980123456
+D001,Nguyễn Văn A,Nội tổng quát,0901234567,a.nguyen@hospital.com,Nam,45,Khoa Nội,Đang làm việc
+D002,Trần Thị B,Tim mạch,0912345678,b.tran@hospital.com,Nữ,38,Khoa Tim mạch,Đang làm việc
+D003,Lê Văn C,Da liễu,0923456789,c.le@hospital.com,Nam,42,Khoa Da liễu,Đang làm việc
+D004,Phạm Thị D,Răng hàm mặt,0934567890,d.pham@hospital.com,Nữ,35,Khoa Răng hàm mặt,Đang làm việc
+D005,Hoàng Văn E,Hô hấp,0945678901,e.hoang@hospital.com,Nam,50,Khoa Hô hấp,Đang làm việc
+D006,Đặng Thị F,Tiêu hóa,0956789012,f.dang@hospital.com,Nữ,39,Khoa Tiêu hóa,Đang làm việc
+D007,Ngô Văn G,Mắt,0967890123,g.ngo@hospital.com,Nam,41,Khoa Mắt,Đang làm việc
+D008,Vũ Thị H,Nội tiết,0978901234,h.vu@hospital.com,Nữ,37,Khoa Nội tiết,Đang làm việc
+D009,Đoàn Văn I,Sản,0989012345,i.doan@hospital.com,Nam,48,Khoa Sản,Đang làm việc
+D010,Phan Thị J,Nhi,0990123456,j.phan@hospital.com,Nữ,34,Khoa Nhi,Đang làm việc
+D011,Trịnh Văn K,Tai mũi họng,0901111222,k.trinh@hospital.com,Nam,43,Khoa Tai mũi họng,Đang làm việc
+D012,Nguyễn Thị L,Nội thần kinh,0912222333,l.nguyen@hospital.com,Nữ,46,Khoa Thần kinh,Đang làm việc
+D013,Trần Văn M,Cơ xương khớp,0923333444,m.tran@hospital.com,Nam,49,Khoa Cơ xương khớp,Đang làm việc
+D014,Lê Thị N,Tâm lý,0934444555,n.le@hospital.com,Nữ,36,Khoa Tâm lý,Đang làm việc
+D015,Phạm Văn O,Da liễu,0945555666,o.pham@hospital.com,Nam,44,Khoa Da liễu,Đang làm việc
+D016,Hoàng Thị P,Tiêu hóa,0956666777,p.hoang@hospital.com,Nữ,40,Khoa Tiêu hóa,Đang làm việc
+D017,Đặng Văn Q,Mắt,0967777888,q.dang@hospital.com,Nam,47,Khoa Mắt,Đang làm việc
+D018,Ngô Thị R,Tim mạch,0978888999,r.ngo@hospital.com,Nữ,38,Khoa Tim mạch,Đang làm việc
+D019,Vũ Văn S,Tai mũi họng,0989999000,s.vu@hospital.com,Nam,39,Khoa Tai mũi họng,Đang làm việc
+D020,Đoàn Thị T,Sản,0990000111,t.doan@hospital.com,Nữ,45,Khoa Sản,Đang làm việc
