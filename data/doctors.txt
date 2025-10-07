@@ -1,20 +1,13 @@
-D001,Nguyen Van Bac,Nội tổng quát,0912345678
-D002,Tran Thi Chau,Nhi khoa,0987654321
-D003,Le Van Dung,Tim mạch,0978123456
-D004,Pham Thi Em,Da liễu,0909123456
-D005,Nguyen Van Giang,Thần kinh,0934567890
-D006,Hoang Thi Ha,Tai mũi họng,0945678901
-D007,Phan Van Hung,Răng hàm mặt,0956789012
-D008,Vu Thi Huyen,Nội tiết,0967890123
-D009,Do Van Khoa,Chấn thương chỉnh hình,0978901234
-D010,Nguyen Thi Lan,Phụ sản,0989012345
-D011,Tran Van Minh,Thận - tiết niệu,0990123456
-D012,Pham Thi Nga,Tim mạch,0901234567
-D013,Le Van Oanh,Da liễu,0913456789
-D014,Hoang Thi Phuong,Nhi khoa,0924567890
-D015,Nguyen Van Quang,Nội tổng quát,0935678901
-D016,Tran Thi Rinh,Nhãn khoa,0946789012
-D017,Pham Van Sang,Thần kinh,0957890123
-D018,Le Thi Thanh,Phụ sản,0968901234
-D019,Nguyen Van Toan,Tai mũi họng,0979012345
-D020,Hoang Thi Uyen,Nội tiết,0980123456
+D001,Nguyễn Văn A,Nội,CKI,10,0912345678,nva@example.com,08:00-16:00,Hoạt động
+D002,Nguyễn Văn B,Tai mũi họng,CKI,10,0987654321,ttb@example.com,9:00-16:00,Hoạt động
+D003,Lê Văn C,Tim mạch,CKII,13,0911222333,lvc@example.com,08:00-17:00,Không hoạt động
+D004,Phạm Thị D,Nhi,CKII,5,0933444555,ptd@example.com,09:00-15:00,Không hoạt động
+D006,Nguyễn Thị F,Răng hàm mặt,CKI,3,0955666777,ntf@example.com,09:00-17:00,Hoạt động
+D007,Trần Văn G,Ngoại,CKII,15,0966777888,tvg@example.com,08:00-16:00,Hoạt động
+D008,Lê Thị H,Nội,CKI,6,0977888999,lth@example.com,09:00-17:00,Hoạt động
+D009,Phạm Văn I,Tim mạch,CKII,9,0988999000,pvi@example.com,08:00-16:00,Hoạt động
+D010,Hoàng Thị J,Nhi,CKI,4,0911001122,htj@example.com,09:00-15:00,Không hoạt động
+D011,Trần Thị K,Mắt,CKII,15,0981111111,ttk@example.com,08:00-14:00,Hoạt động
+D012,Nguyễn Văn L,Da liễu,CKII,6,0991234567,nvl@example.com,08:30-16:30,Hoạt động
+D013,Vũ Thị M,Nội,CKI,7,0912121212,vtm@example.com,08:00-16:00,Không hoạt động
+D014,Trần Văn N,Nhi,CKI,6,0913333444,tvn@example.com,08:00-15:00,Hoạt động
