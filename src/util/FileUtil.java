@@ -35,16 +35,19 @@ public class FileUtil {
     }
 
     // Ghi toàn bộ danh sách dòng vào file (ghi đè)
-    public static void writeFile(String filePath, List<String> lines) {
+    public static boolean writeFile(String filePath, List<String> lines) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (String line : lines) {
                 bw.write(line);
                 bw.newLine();
             }
+            return true;
         } catch (IOException e) {
             System.out.println("❌ Lỗi khi ghi file " + filePath + ": " + e.getMessage());
+            return false;
         }
     }
+
 
     // Ghi thêm 1 dòng vào cuối file (append)
     public static void appendToFile(String filePath, String line) {
