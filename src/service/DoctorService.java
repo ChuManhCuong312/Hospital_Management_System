@@ -29,7 +29,7 @@ public class DoctorService {
         showAll();
         System.out.print("Nhập mã BS cần sửa: ");
         String ma = sc.nextLine().trim().toUpperCase();
-        Doctor old = findByMaBS(ma);
+        Doctor old = findByDoctorId(ma);
         if (old == null) return "Không tìm thấy mã BS.";
 
         Doctor updated = inputDoctorForUpdate(sc, old);
@@ -55,7 +55,7 @@ public class DoctorService {
                 System.out.println("Mã không hợp lệ (vd: D001)");
                 continue;
             }
-            if (findByMaBS(ma) != null) {
+            if (findByDoctorId(ma) != null) {
                 System.out.println("Mã đã tồn tại.");
                 continue;
             }
@@ -294,7 +294,7 @@ public class DoctorService {
     public void findByIdFromInput(Scanner sc) {
         System.out.print("Nhập mã BS: ");
         String ma = sc.nextLine().trim().toUpperCase();
-        Doctor d = findByMaBS(ma);
+        Doctor d = findByDoctorId(ma);
         if (d == null) System.out.println("Không tìm thấy");
         else printDoctor(d);
     }
@@ -320,7 +320,7 @@ public class DoctorService {
     }
 
     public String updateDoctor(Doctor updated) {
-        Doctor old = findByMaBS(updated.getDoctorId());
+        Doctor old = findByDoctorId(updated.getDoctorId());
         if (old == null) return "Không tìm thấy mã BS";
         String err = DoctorValidator.validateDoctor(updated, doctors, old.getPhone(), old.getEmail());
         if (err != null) return err;
@@ -328,15 +328,15 @@ public class DoctorService {
         return saveToFile() ? "Cập nhật thành công" : "Lỗi ghi file";
     }
 
-    public String deleteDoctor(String maBS) {
-        Doctor d = findByMaBS(maBS);
+    public String deleteDoctor(String doctorId) {
+        Doctor d = findByDoctorId(doctorId);
         if (d == null) return "Không tìm thấy mã BS";
         doctors.remove(d);
         return saveToFile() ? "Xóa thành công" : "Lỗi ghi file";
     }
 
-    public Doctor findByMaBS(String maBS) {
-        return doctors.stream().filter(d -> d.getDoctorId().equalsIgnoreCase(maBS)).findFirst().orElse(null);
+    public Doctor findByDoctorId(String doctorId) {
+        return doctors.stream().filter(d -> d.getDoctorId().equalsIgnoreCase(doctorId)).findFirst().orElse(null);
     }
 
     public List<Doctor> findByName(String name) {
