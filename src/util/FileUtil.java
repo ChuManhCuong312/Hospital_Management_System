@@ -16,7 +16,7 @@ public class FileUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Lỗi khi tạo file: " + e.getMessage());
+                System.out.println("❌ Lỗi khi tạo file: " + e.getMessage());
                 return lines;
             }
         }
@@ -29,22 +29,25 @@ public class FileUtil {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Lỗi khi đọc file " + filePath + ": " + e.getMessage());
+            System.out.println("❌ Lỗi khi đọc file " + filePath + ": " + e.getMessage());
         }
         return lines;
     }
 
     // Ghi toàn bộ danh sách dòng vào file (ghi đè)
-    public static void writeFile(String filePath, List<String> lines) {
+    public static boolean writeFile(String filePath, List<String> lines) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (String line : lines) {
                 bw.write(line);
                 bw.newLine();
             }
+            return true;
         } catch (IOException e) {
-            System.out.println("Lỗi khi ghi file " + filePath + ": " + e.getMessage());
+            System.out.println("❌ Lỗi khi ghi file " + filePath + ": " + e.getMessage());
+            return false;
         }
     }
+
 
     // Ghi thêm 1 dòng vào cuối file (append)
     public static void appendToFile(String filePath, String line) {
@@ -52,7 +55,7 @@ public class FileUtil {
             bw.write(line);
             bw.newLine();
         } catch (IOException e) {
-            System.out.println("Lỗi khi ghi thêm vào file " + filePath + ": " + e.getMessage());
+            System.out.println("❌ Lỗi khi ghi thêm vào file " + filePath + ": " + e.getMessage());
         }
     }
 
@@ -61,7 +64,7 @@ public class FileUtil {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             // Ghi rỗng để xóa dữ liệu
         } catch (IOException e) {
-            System.out.println("Lỗi khi xóa nội dung file " + filePath + ": " + e.getMessage());
+            System.out.println("❌ Lỗi khi xóa nội dung file " + filePath + ": " + e.getMessage());
         }
     }
 

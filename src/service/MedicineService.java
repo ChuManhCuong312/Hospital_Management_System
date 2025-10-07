@@ -9,7 +9,7 @@ public class MedicineService {
 
     public void addMedicine(Medicine m) {
         FileUtil.appendToFile(FILE_PATH, m.toString());
-        System.out.println("Đã thêm thuốc: " + m.getName());
+        System.out.println("✅ Đã thêm thuốc: " + m.getName());
     }
 
     public List<Medicine> getAllMedicines() {
@@ -25,7 +25,7 @@ public class MedicineService {
     public void viewAll() {
         List<Medicine> list = getAllMedicines();
         if (list.isEmpty()) {
-            System.out.println("Chưa có thuốc nào trong kho.");
+            System.out.println("⚠️  Chưa có thuốc nào trong kho.");
             return;
         }
 
@@ -58,9 +58,9 @@ public class MedicineService {
 
         if (found) {
             saveAll(list);
-            System.out.println("Đã cập nhật số lượng thuốc ID: " + id);
+            System.out.println("✅ Đã cập nhật số lượng thuốc ID: " + id);
         } else {
-            System.out.println("Không tìm thấy thuốc có ID: " + id);
+            System.out.println("❌ Không tìm thấy thuốc có ID: " + id);
         }
     }
 

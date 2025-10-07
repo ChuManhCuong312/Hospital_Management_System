@@ -1,8 +1,8 @@
 package service;
 
+import java.util.*;
 import model.Appointment;
 import util.FileUtil;
-import java.util.*;
 
 public class AppointmentService {
     private static final String FILE_PATH = "data/appointments.txt";
@@ -25,33 +25,34 @@ public class AppointmentService {
     public void viewAll() {
         List<Appointment> list = getAllAppointments();
         if (list.isEmpty()) {
-            System.out.println("Chưa có lịch hẹn nào.");
+            System.out.println("⚠️  Chưa có lịch hẹn nào.");
             return;
         }
 
-        System.out.println("\n+------+----------+----------+------------+");
-        System.out.println("|  ID  |  Mã BN   |  Mã BS   |   Ngày     |");
-        System.out.println("+------+----------+----------+------------+");
+        System.out.println("\n+------+----------+----------+------------++");
+        System.out.println("|  ID  |  Mã BN   |  Mã BS   |   Ngày     ||");
+        System.out.println("+------+----------+----------+------------++");
 
         for (Appointment a : list) {
-            System.out.printf("| %-4s | %-8s | %-8s | %-10s |%n",
+            System.out.printf("| %-4s | %-8s | %-8s | %-10s | %-20s |%n",
                     a.getId(),
                     a.getPatientId(),
                     a.getDoctorId(),
                     a.getDate());
         }
 
-        System.out.println("+------+----------+----------+------------+");
+        System.out.println("+------+----------+----------+------------++");
     }
+
 
     public void deleteAppointment(String id) {
         List<Appointment> list = getAllAppointments();
         boolean removed = list.removeIf(a -> a.getId().equalsIgnoreCase(id));
         if (removed) {
             saveAll(list);
-            System.out.println("Đã hủy lịch hẹn ID: " + id);
+            System.out.println("✅ Đã hủy lịch hẹn ID: " + id);
         } else {
-            System.out.println("Không tìm thấy lịch hẹn ID: " + id);
+            System.out.println("❌ Không tìm thấy lịch hẹn ID: " + id);
         }
     }
 
