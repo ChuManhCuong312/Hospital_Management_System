@@ -16,7 +16,7 @@ public class FileUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("❌ Lỗi khi tạo file: " + e.getMessage());
+                System.out.println("Lỗi khi tạo file: " + e.getMessage());
                 return lines;
             }
         }
@@ -29,7 +29,7 @@ public class FileUtil {
                 }
             }
         } catch (IOException e) {
-            System.out.println("❌ Lỗi khi đọc file " + filePath + ": " + e.getMessage());
+            System.out.println("Lỗi khi đọc file " + filePath + ": " + e.getMessage());
         }
         return lines;
     }
@@ -43,7 +43,7 @@ public class FileUtil {
             }
             return true;
         } catch (IOException e) {
-            System.out.println("❌ Lỗi khi ghi file " + filePath + ": " + e.getMessage());
+            System.out.println("Lỗi khi ghi file " + filePath + ": " + e.getMessage());
             return false;
         }
     }
@@ -55,7 +55,7 @@ public class FileUtil {
             bw.write(line);
             bw.newLine();
         } catch (IOException e) {
-            System.out.println("❌ Lỗi khi ghi thêm vào file " + filePath + ": " + e.getMessage());
+            System.out.println("Lỗi khi ghi thêm vào file " + filePath + ": " + e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class FileUtil {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             // Ghi rỗng để xóa dữ liệu
         } catch (IOException e) {
-            System.out.println("❌ Lỗi khi xóa nội dung file " + filePath + ": " + e.getMessage());
+            System.out.println("Lỗi khi xóa nội dung file " + filePath + ": " + e.getMessage());
         }
     }
 
