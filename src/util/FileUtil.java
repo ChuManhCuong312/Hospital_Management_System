@@ -48,7 +48,6 @@ public class FileUtil {
         }
     }
 
-
     // Ghi thêm 1 dòng vào cuối file (append)
     public static void appendToFile(String filePath, String line) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -71,7 +70,8 @@ public class FileUtil {
     // Kiểm tra file có trống không
     public static boolean isFileEmpty(String filePath) {
         File file = new File(filePath);
-        if (!file.exists() || file.length() == 0) return true;
+        if (!file.exists() || file.length() == 0)
+            return true;
         return false;
     }
 }
