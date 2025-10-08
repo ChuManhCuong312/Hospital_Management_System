@@ -72,4 +72,51 @@ public class PatientService {
             return "Lỗi khi thêm bệnh nhân: " + e.getMessage();
         }
     }
+
+    // ==================== READ OPERATIONS ====================
+
+    /**
+     * Lấy tất cả bệnh nhân từ file
+     */
+    public List<Patient> getAllPatients() {
+        List<String> lines = FileUtil.readFile(FILE_PATH);
+        List<Patient> patients = new ArrayList<>();
+
+        for (String line : lines) {
+            if (line.trim().isEmpty()) continue;
+            Patient patient = Patient.fromString(line);
+            if (patient != null) {
+                patients.add(patient);
+            }
+        }
+        return patients;
+    }
+
+    /**
+     * Hiển thị tất cả bệnh nhân dạng bảng
+     */
+    public void viewAll() {
+        List<Patient> patients = getAllPatients();
+        if (patients.isEmpty()) {
+            System.out.println("Không có bệnh nhân nào trong hệ thống!");
+            return;
+        }
+
+        System.out.println("\n=== DANH SÁCH BỆNH NHÂN ===");
+        System.out.println("+------+----------------+-----+-----------+----------------------+");
+        System.out.println("|  ID  |     Họ tên     | Tuổi| Giới tính |      Chẩn đoán       |");
+        System.out.println("+------+----------------+-----+-----------+----------------------+");
+
+        for (Patient patient : patients) {
+            System.out.printf("| %-4s | %-14s | %-3d | %-9s | %-20s |%n",
+                    patient.getId(),
+                    patient.getName(),
+                    patient.getAge(),
+                    patient.getGender(),
+                    patient.getDiagnosis());
+        }
+
+        System.out.println("+------+----------------+-----+-----------+----------------------+");
+        System.out.println("Tổng số bệnh nhân: " + patients.size());
+    }
 }
