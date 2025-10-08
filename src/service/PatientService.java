@@ -209,5 +209,92 @@ public class PatientService {
         System.out.println("+------+----------------+-----+-----------+----------------------+");
         System.out.println("Tìm thấy " + patients.size() + " bệnh nhân");
     }
-    
+    // ==================== UPDATE OPERATIONS ====================
+
+    /**
+     * Cập nhật thông tin bệnh nhân
+     */
+    public void updatePatient(String id, String newName, int newAge, String newGender, String newDiagnosis) {
+        try {
+            List<Patient> patients = getAllPatients();
+            boolean found = false;
+
+            for (Patient patient : patients) {
+                if (patient.getId().equalsIgnoreCase(id)) {
+                    // Validate dữ liệu mới
+                    PatientValidator.validateName(newName);
+                    PatientValidator.validateAge(newAge);
+                    PatientValidator.validateGender(newGender);
+                    PatientValidator.validateDiagnosis(newDiagnosis);
+
+                    patient.setName(newName);
+                    patient.setAge(newAge);
+                    patient.setGender(newGender);
+                    patient.setDiagnosis(newDiagnosis);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                saveAll(patients);
+                System.out.println("Đã cập nhật thông tin bệnh nhân ID: " + id);
+            } else {
+                System.out.println("Không tìm thấy bệnh nhân có ID: " + id);
+            }
+
+        } catch (InvalidDataException e) {
+            System.out.println("Dữ liệu không hợp lệ: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Cập nhật bệnh nhân từ input người dùng
+     */
+    public String updatePatientFromInput(Scanner scanner) {
+        try {
+            System.out.println("\n=== CẬP NHẬT THÔNG TIN BỆNH NHÂN ===");
+
+            String id = InputUtil.inputString("Nhập ID bệnh nhân cần cập nhật: ");
+            Patient existingPatient = findById(id);
+
+            if (existingPatient == null) {
+                return "Không tìm thấy bệnh nhân có ID: " + id;
+            }
+
+            System.out.println("Thông tin hiện tại:");
+            System.out.println("ID: " + existingPatient.getId());
+            System.out.println("Họ tên: " + existingPatient.getName());
+            System.out.println("Tuổi: " + existingPatient.getAge());
+            System.out.println("Giới tính: " + existingPatient.getGender());
+            System.out.println("Chẩn đoán: " + existingPatient.getDiagnosis());
+
+            System.out.println("\nNhập thông tin mới (Enter để giữ nguyên):");
+            String newName = InputUtil.inputString("Họ tên mới: ");
+            String newAgeStr = InputUtil.inputString("Tuổi mới: ");
+            String newGender = InputUtil.inputString("Giới tính mới: ");
+            String newDiagnosis = InputUtil.inputString("Chẩn đoán mới: ");
+
+            if (newName.trim().isEmpty()) newName = existingPatient.getName();
+            if (newGender.trim().isEmpty()) newGender = existingPatient.getGender();
+            if (newDiagnosis.trim().isEmpty()) newDiagnosis = existingPatient.getDiagnosis();
+
+            int newAge = existingPatient.getAge();
+            if (!newAgeStr.trim().isEmpty()) {
+                try {
+                    newAge = Integer.parseInt(newAgeStr);
+                } catch (NumberFormatException e) {
+                    System.out.println("Tuổi không hợp lệ, giữ nguyên tuổi cũ: " + existingPatient.getAge());
+                }
+            }
+
+            updatePatient(id, newName, newAge, newGender, newDiagnosis);
+            return "Cập nhật thành công!";
+
+        } catch (Exception e) {
+            return "Lỗi khi cập nhật: " + e.getMessage();
+        }
+    }
 }
