@@ -41,4 +41,35 @@ public class PatientService {
             System.out.println("Lỗi khi thêm bệnh nhân: " + e.getMessage());
         }
     }
+
+    /**
+     * Thêm bệnh nhân từ input người dùng
+     */
+    public String addPatientFromInput(Scanner scanner) {
+        try {
+            System.out.println("\n=== THÊM BỆNH NHÂN MỚI ===");
+
+            String id = InputUtil.inputString("Nhập ID bệnh nhân: ");
+            String name = InputUtil.inputString("Nhập họ tên: ");
+            int age = InputUtil.inputInt("Nhập tuổi: ");
+            String gender = InputUtil.inputString("Nhập giới tính (Nam/Nữ): ");
+            String diagnosis = InputUtil.inputString("Nhập chẩn đoán: ");
+
+            // Validate và chuẩn hóa dữ liệu
+            Patient patient = PatientValidator.validateAndNormalize(id, name, age, gender, diagnosis);
+
+            // Kiểm tra ID trùng lặp
+            if (findById(patient.getId()) != null) {
+                return "ID bệnh nhân đã tồn tại: " + patient.getId();
+            }
+
+            addPatient(patient);
+            return "Thêm bệnh nhân thành công!";
+
+        } catch (InvalidDataException e) {
+            return "Dữ liệu không hợp lệ: " + e.getMessage();
+        } catch (Exception e) {
+            return "Lỗi khi thêm bệnh nhân: " + e.getMessage();
+        }
+    }
 }
