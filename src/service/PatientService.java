@@ -10,5 +10,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientService {
-    
+    private static final String FILE_PATH = "data/patients.txt";
 }
