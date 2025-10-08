@@ -412,4 +412,39 @@ public class PatientService {
         }
     }
 
+    /**
+     * Thống kê bệnh nhân
+     */
+    public void showStatistics() {
+        List<Patient> patients = getAllPatients();
+        if (patients.isEmpty()) {
+            System.out.println("Không có dữ liệu để thống kê!");
+            return;
+        }
+
+        System.out.println("\n=== THỐNG KÊ BỆNH NHÂN ===");
+        System.out.println("Tổng số bệnh nhân: " + patients.size());
+
+        // Thống kê theo giới tính
+        long maleCount = patients.stream().filter(p -> "Nam".equalsIgnoreCase(p.getGender())).count();
+        long femaleCount = patients.stream().filter(p -> "Nữ".equalsIgnoreCase(p.getGender())).count();
+        System.out.println("Nam: " + maleCount + " | Nữ: " + femaleCount);
+
+        // Thống kê theo độ tuổi
+        double avgAge = patients.stream().mapToInt(Patient::getAge).average().orElse(0);
+        int minAge = patients.stream().mapToInt(Patient::getAge).min().orElse(0);
+        int maxAge = patients.stream().mapToInt(Patient::getAge).max().orElse(0);
+        System.out.println("Tuổi trung bình: " + String.format("%.1f", avgAge));
+        System.out.println("Tuổi nhỏ nhất: " + minAge + " | Tuổi lớn nhất: " + maxAge);
+
+        // Top 5 chẩn đoán phổ biến
+        Map<String, Long> diagnosisCount = patients.stream()
+                .collect(Collectors.groupingBy(Patient::getDiagnosis, Collectors.counting()));
+
+        System.out.println("\nTop 5 chẩn đoán phổ biến:");
+        diagnosisCount.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(5)
+                .forEach(entry -> System.out.println("  • " + entry.getKey() + ": " + entry.getValue() + " bệnh nhân"));
+    }
 }
