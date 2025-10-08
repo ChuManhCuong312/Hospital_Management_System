@@ -119,4 +119,95 @@ public class PatientService {
         System.out.println("+------+----------------+-----+-----------+----------------------+");
         System.out.println("Tổng số bệnh nhân: " + patients.size());
     }
+
+
+    /**
+     * Tìm bệnh nhân theo ID
+     */
+    public Patient findById(String id) {
+        if (id == null || id.trim().isEmpty()) {
+            return null;
+        }
+
+        return getAllPatients().stream()
+                .filter(patient -> patient.getId().equalsIgnoreCase(id.trim()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Tìm bệnh nhân theo tên
+     */
+    public List<Patient> findByName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return getAllPatients().stream()
+                .filter(patient -> patient.getName().toLowerCase().contains(name.toLowerCase().trim()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Tìm bệnh nhân theo giới tính
+     */
+    public List<Patient> findByGender(String gender) {
+        if (gender == null || gender.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return getAllPatients().stream()
+                .filter(patient -> patient.getGender().equalsIgnoreCase(gender.trim()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Tìm bệnh nhân theo chẩn đoán
+     */
+    public List<Patient> findByDiagnosis(String diagnosis) {
+        if (diagnosis == null || diagnosis.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return getAllPatients().stream()
+                .filter(patient -> patient.getDiagnosis().toLowerCase().contains(diagnosis.toLowerCase().trim()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Lọc bệnh nhân theo độ tuổi
+     */
+    public List<Patient> filterByAge(int minAge, int maxAge) {
+        return getAllPatients().stream()
+                .filter(patient -> patient.getAge() >= minAge && patient.getAge() <= maxAge)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Hiển thị kết quả tìm kiếm
+     */
+    public void showSearchResults(List<Patient> patients, String searchType) {
+        if (patients.isEmpty()) {
+            System.out.println("Không tìm thấy bệnh nhân nào với tiêu chí: " + searchType);
+            return;
+        }
+
+        System.out.println("\n=== KẾT QUẢ TÌM KIẾM: " + searchType.toUpperCase() + " ===");
+        System.out.println("+------+----------------+-----+-----------+----------------------+");
+        System.out.println("|  ID  |     Họ tên     | Tuổi| Giới tính |      Chẩn đoán       |");
+        System.out.println("+------+----------------+-----+-----------+----------------------+");
+
+        for (Patient patient : patients) {
+            System.out.printf("| %-4s | %-14s | %-3d | %-9s | %-20s |%n",
+                    patient.getId(),
+                    patient.getName(),
+                    patient.getAge(),
+                    patient.getGender(),
+                    patient.getDiagnosis());
+        }
+
+        System.out.println("+------+----------------+-----+-----------+----------------------+");
+        System.out.println("Tìm thấy " + patients.size() + " bệnh nhân");
+    }
+    
 }
