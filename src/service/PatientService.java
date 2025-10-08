@@ -349,5 +349,67 @@ public class PatientService {
         }
     }
 
+    // ==================== UTILITY OPERATIONS ====================
+
+    /**
+     * Lưu tất cả bệnh nhân vào file
+     */
+    private void saveAll(List<Patient> patients) {
+        List<String> lines = patients.stream()
+                .map(Patient::toString)
+                .collect(Collectors.toList());
+        FileUtil.writeFile(FILE_PATH, lines);
+    }
+
+    /**
+     * Xuất dữ liệu ra file
+     */
+    public boolean exportToFile(String fileName) {
+        try {
+            List<Patient> patients = getAllPatients();
+            List<String> lines = patients.stream()
+                    .map(Patient::toString)
+                    .collect(Collectors.toList());
+
+            FileUtil.writeFile(fileName, lines);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi khi xuất file: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Nhập dữ liệu từ file
+     */
+    public String importFromFile(String fileName) {
+        try {
+            List<String> lines = FileUtil.readFile(fileName);
+            int importedCount = 0;
+            int errorCount = 0;
+
+            for (String line : lines) {
+                if (line.trim().isEmpty()) continue;
+
+                Patient patient = Patient.fromString(line);
+                if (patient != null) {
+                    if (findById(patient.getId()) == null) {
+                        FileUtil.appendToFile(FILE_PATH, patient.toString());
+                        importedCount++;
+                    } else {
+                        errorCount++;
+                    }
+                } else {
+                    errorCount++;
+                }
+            }
+
+            return "Import thành công " + importedCount + " bệnh nhân. "
+                    + (errorCount > 0 ? errorCount + " dòng lỗi." : "");
+
+        } catch (Exception e) {
+            return "Lỗi khi import file: " + e.getMessage();
+        }
+    }
 
 }
