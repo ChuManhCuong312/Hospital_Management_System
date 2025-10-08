@@ -1,0 +1,21 @@
+PR001,A001,Paracetamol,Viên uống,Uống sau ăn,10,5000.0,50000.0,Đang dùng
+PR002,A002,Amoxicillin,Viên uống,Uống 2 lần/ngày,15,8000.0,120000.0,Đã cấp
+PR003,A003,Vitamin C,Viên sủi,Pha với nước,20,3000.0,60000.0,Đang dùng
+PR004,A004,Ibuprofen,Viên uống,Uống sau ăn,12,7000.0,84000.0,Đang dùng
+PR005,A005,Loratadine,Viên uống,Uống 1 lần/ngày,10,6000.0,60000.0,Đã cấp
+PR006,A006,Omeprazole,Viên uống,Uống trước ăn sáng,14,9000.0,126000.0,Đang dùng
+PR007,A007,Salbutamol,Ống hít,Hít khi khó thở,5,15000.0,75000.0,Đang dùng
+PR008,A008,Metformin,Viên uống,Uống sau bữa ăn,18,5000.0,90000.0,Đang dùng
+PR009,A009,Atorvastatin,Viên uống,Uống buổi tối,16,12000.0,192000.0,Đã cấp
+PR010,A010,Cetirizine,Viên uống,Uống buổi tối,8,4000.0,32000.0,Đang dùng
+PR011,A011,Azithromycin,Viên uống,Uống 1 lần/ngày,10,10000.0,100000.0,Đang dùng
+PR012,A012,Prednisolone,Viên uống,Uống sau ăn,9,9000.0,81000.0,Đã ngừng
+PR013,A013,Acetylcysteine,Gói bột,Pha nước uống,12,7000.0,84000.0,Đang dùng
+PR014,A014,Insulin,Lọ tiêm,Tiêm trước ăn,3,50000.0,150000.0,Đang dùng
+PR015,A015,Losartan,Viên uống,Uống sáng,15,6000.0,90000.0,Đã cấp
+PR016,A016,Amiodarone,Viên uống,Uống sáng,6,20000.0,120000.0,Đang dùng
+PR017,A017,Spironolactone,Viên uống,Uống sáng,10,10000.0,100000.0,Đang dùng
+PR018,A018,Cefuroxime,Viên uống,Uống sáng và tối,10,12000.0,120000.0,Đã cấp
+PR019,A019,Clarithromycin,Viên uống,Uống 2 lần/ngày,8,13000.0,104000.0,Đang dùng
+PR020,A020,Hydrocortisone,Kem bôi,Bôi 2 lần/ngày,5,25000.0,125000.0,Đang dùng
+PR021,A021,Axit Clohidric,Viên uống,3 viên sáng/trưa/tối sau ăn,100,500000.0,5.0E7,Đã cấp

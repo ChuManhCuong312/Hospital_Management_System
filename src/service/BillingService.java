@@ -137,7 +137,11 @@ public class BillingService {
             System.out.println("1. Theo mã bệnh nhân");
             System.out.println("2. Theo ngày (dd/MM/yyyy)");
             System.out.println("3. Tổng tiền >= X");
-            int c = InputUtil.nhapLuaChon("Chọn: ", 1, 3);
+            System.out.println("4. Quay lại");
+            int c = InputUtil.nhapLuaChon("Chọn: ", 1, 4);
+            if (c == 4) {
+                return;
+            }
             String key = InputUtil.nhapChuoi("Nhập từ khóa: ");
             List<Bill> res = new ArrayList<>();
             for (Bill b : getAll()) {
@@ -166,7 +170,11 @@ public class BillingService {
             System.out.println("===== LỌC HÓA ĐƠN =====");
             System.out.println("1. Theo khoảng ngày");
             System.out.println("2. Theo khoảng tổng tiền");
-            int c = InputUtil.nhapLuaChon("Chọn: ", 1, 2);
+            System.out.println("3. Quay lại");
+            int c = InputUtil.nhapLuaChon("Chọn: ", 1, 3);
+            if (c==3){
+                return;
+            }
             List<Bill> res = new ArrayList<>();
             if (c == 1) {
                 String from = InputUtil.nhapChuoi("Từ ngày (dd/MM/yyyy): ");

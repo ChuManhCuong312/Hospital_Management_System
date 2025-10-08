@@ -18,3 +18,4 @@ P017,Đặng Thị Thảo,52,Nữ,HCM,0907897897,Khô mắt,O+,D017,Đang điề
 P018,Ngô Văn Dũng,44,Nam,Nam Định,0908908908,Đau ngực,B+,D018,Đang theo dõi
 P019,Vũ Thị Hạnh,36,Nữ,Hà Nội,0909019019,Viêm tai,O+,D019,Đang điều trị
 P020,Đoàn Văn Cường,30,Nam,HCM,0900120120,Kiểm tra thai kỳ,AB+,D020,Đang điều trị
+P021,Chu Mạnh Cường,30,Nam,Hà Nội,01234567989,Đau lưng,B+,D019,Đang điều trị

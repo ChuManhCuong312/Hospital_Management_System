@@ -7,7 +7,7 @@ public class HospitalManagementSystem {
     private static final PatientService patientService = new PatientService();
     private static final DoctorService doctorService = new DoctorService();
     private static final AppointmentService appointmentService = new AppointmentService();
-    private static final MedicineService medicineService = new MedicineService();
+    private static final PrescriptionService prescriptionService = new PrescriptionService();
     private static final BillingService billingService = new BillingService();
 
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class HospitalManagementSystem {
             System.out.println("1. Quản lý bệnh nhân");
             System.out.println("2. Quản lý bác sĩ");
             System.out.println("3. Quản lý lịch khám");
-            System.out.println("4. Quản lý thuốc");
+            System.out.println("4. Quản lý đơn thuốc");
             System.out.println("5. Quản lý hóa đơn");
             System.out.println("0. Thoát");
             choice = InputUtil.nhapLuaChon("→ Nhập lựa chọn: ", 0, 5);
@@ -26,7 +26,7 @@ public class HospitalManagementSystem {
                 case 1 -> menuPatient();
                 case 2 -> menuDoctor();
                 case 3 -> menuAppointment();
-                case 4 -> menuMedicine();
+                case 4 -> menuPrescription();
                 case 5 -> menuBilling();
                 case 0 -> System.out.println("Cảm ơn bạn đã sử dụng hệ thống!");
             }
@@ -157,31 +157,30 @@ public class HospitalManagementSystem {
         } while (choice != 0);
     }
 
-    // ================== MENU THUỐC ======================
-    private static void menuMedicine() {
+    // ================== MENU ĐƠN THUỐC ======================
+    private static void menuPrescription() {
         int choice;
         do {
-            System.out.println("\n------ QUẢN LÝ THUỐC ------");
-            System.out.println("1. Thêm thuốc");
-            System.out.println("2. Cập nhật thuốc");
-            System.out.println("3. Xem danh sách thuốc");
-            System.out.println("4. Xóa thuốc");
-            System.out.println("5. Tìm kiếm thuốc (Bệnh nhân / Bác sĩ / Ngày)");
-            System.out.println("6. Lọc thuốc (Theo ngày hoặc bác sĩ)");
+            System.out.println("\n------ QUẢN LÝ ĐƠN THUỐC ------");
+            System.out.println("1. Thêm đơn thuốc");
+            System.out.println("2. Cập nhật đơn thuốc");
+            System.out.println("3. Xem danh sách đơn thuốc");
+            System.out.println("4. Xóa đơn thuốc");
+            System.out.println("5. Tìm kiếm đơn thuốc (Bệnh nhân / Bác sĩ / Ngày)");
+            System.out.println("6. Lọc đơn thuốc (Theo ngày hoặc bác sĩ)");
             System.out.println("0. Quay lại");
             choice = InputUtil.nhapLuaChon("→ Nhập lựa chọn: ", 0, 6);
 
             switch (choice) {
-                case 1 -> medicineService.addMedicine();
-                case 2 -> medicineService.updateMedicine();
-                case 3 -> medicineService.viewAll();
-                case 4 -> medicineService.deleteMedicine();
-                case 5 -> medicineService.searchMedicine();
-                case 6 -> medicineService.filterMedicine();
+                case 1 -> prescriptionService.addPrescription();
+                case 2 -> prescriptionService.updatePrescription();
+                case 3 -> prescriptionService.viewAll();
+                case 4 -> prescriptionService.deletePrescription();
+                case 5 -> prescriptionService.searchMedicineByPrescriptionCriteria();
+                case 6 -> prescriptionService.filterPrescription();
             }
         } while (choice != 0);
     }
-
     // ================== MENU HÓA ĐƠN ======================
     private static void menuBilling() {
         int choice;

@@ -1,21 +1,21 @@
-A001,P001,D001,2025-10-01,09:00,Khám tổng quát,Đã hoàn thành,300000,Không
-A002,P002,D002,2025-10-02,10:00,Khám tim mạch,Đã hoàn thành,500000,Tái khám sau 2 tuần
-A003,P003,D003,2025-10-03,11:00,Khám da liễu,Hủy,0,Bệnh nhân hủy
-A004,P004,D004,2025-10-04,08:30,Khám răng,Đang xử lý,250000,Đang đợi kết quả X-quang
-A005,P005,D005,2025-10-05,13:00,Khám hô hấp,Đã hoàn thành,400000,Đã cấp thuốc
-A006,P006,D006,2025-10-06,14:00,Khám tiêu hóa,Đã hoàn thành,450000,Bệnh nhân cần tái khám
-A007,P007,D007,2025-10-07,09:30,Khám mắt,Đã hoàn thành,350000,Đeo kính mới
-A008,P008,D008,2025-10-07,15:00,Khám nội tiết,Đã hoàn thành,600000,Đang điều trị
-A009,P009,D009,2025-10-08,16:00,Khám sản,Đang xử lý,700000,Đang chờ xét nghiệm
-A010,P010,D010,2025-10-09,08:00,Khám nhi,Đã hoàn thành,250000,Khỏe mạnh
-A011,P011,D011,2025-10-09,10:00,Khám tai mũi họng,Đã hoàn thành,300000,Đã cấp thuốc
-A012,P012,D012,2025-10-10,09:00,Khám nội thần kinh,Đang xử lý,500000,Cần theo dõi
-A013,P013,D013,2025-10-10,14:00,Khám cơ xương khớp,Đã hoàn thành,400000,Vật lý trị liệu
-A014,P014,D014,2025-10-11,11:00,Khám tâm lý,Đã hoàn thành,600000,Ổn định
-A015,P015,D015,2025-10-12,10:00,Khám da liễu,Đã hoàn thành,350000,Đã kê thuốc bôi
-A016,P016,D016,2025-10-12,13:30,Khám tiêu hóa,Đã hoàn thành,500000,Cải thiện tốt
-A017,P017,D017,2025-10-13,15:00,Khám mắt,Đã hoàn thành,300000,Không bất thường
-A018,P018,D018,2025-10-14,08:00,Khám tim mạch,Đang xử lý,600000,Đợi kết quả ECG
-A019,P019,D019,2025-10-14,09:30,Khám tai mũi họng,Đã hoàn thành,280000,Đã điều trị
-A020,P020,D020,2025-10-15,10:00,Khám sản,Đã hoàn thành,700000,Sức khỏe ổn định
-A021,P020,D020,08/10/2025,08:00,Kiểm tra sức khỏe,Chờ khám,0.0,
+A001,P001,D001,01/10/2025,09:00,Khám tổng quát,Đã hoàn thành,300000,Không
+A002,P002,D002,02/10/2025,10:00,Khám tim mạch,Đã hoàn thành,500000,Tái khám sau 2 tuần
+A003,P003,D003,03/10/2025,11:00,Khám da liễu,Hủy,0,Bệnh nhân hủy
+A004,P004,D004,04/10/2025,08:30,Khám răng,Đang xử lý,250000,Đang đợi kết quả X-quang
+A005,P005,D005,05/10/2025,13:00,Khám hô hấp,Đã hoàn thành,400000,Đã cấp thuốc
+A006,P006,D006,06/10/2025,14:00,Khám tiêu hóa,Đã hoàn thành,450000,Bệnh nhân cần tái khám
+A007,P007,D007,07/10/2025,09:30,Khám mắt,Đã hoàn thành,350000,Đeo kính mới
+A008,P008,D008,07/10/2025,15:00,Khám nội tiết,Đã hoàn thành,600000,Đang điều trị
+A009,P009,D009,08/10/2025,16:00,Khám sản,Đang xử lý,700000,Đang chờ xét nghiệm
+A010,P010,D010,09/10/2025,08:00,Khám nhi,Đã hoàn thành,250000,Khỏe mạnh
+A011,P011,D011,09/10/2025,10:00,Khám tai mũi họng,Đã hoàn thành,300000,Đã cấp thuốc
+A012,P012,D012,10/10/2025,09:00,Khám nội thần kinh,Đang xử lý,500000,Cần theo dõi
+A013,P013,D013,10/10/2025,14:00,Khám cơ xương khớp,Đã hoàn thành,400000,Vật lý trị liệu
+A014,P014,D014,11/10/2025,11:00,Khám tâm lý,Đã hoàn thành,600000,Ổn định
+A015,P015,D015,12/10/2025,10:00,Khám da liễu,Đã hoàn thành,350000,Đã kê thuốc bôi
+A016,P016,D016,12/10/2025,13:30,Khám tiêu hóa,Đã hoàn thành,500000,Cải thiện tốt
+A017,P017,D017,13/10/2025,15:00,Khám mắt,Đã hoàn thành,300000,Không bất thường
+A018,P018,D018,14/10/2025,08:00,Khám tim mạch,Đang xử lý,600000,Đợi kết quả ECG
+A019,P019,D019,14/10/2025,09:30,Khám tai mũi họng,Đã hoàn thành,280000,Đã điều trị
+A020,P020,D020,15/10/2025,10:00,Khám sản,Đã hoàn thành,700000,Sức khỏe ổn định
+

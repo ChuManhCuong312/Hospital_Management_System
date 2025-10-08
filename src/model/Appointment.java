@@ -1,5 +1,9 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 public class Appointment {
     private String id;
     private String patientId;
@@ -32,7 +36,32 @@ public class Appointment {
         try {
             String[] p = line.split(",");
             if (p.length < 9) return null;
-            return new Appointment(p[0], p[1], p[2], p[3], p[4], p[5], p[6], Double.parseDouble(p[7]), p[8]);
+
+            String rawDate = p[3].trim();
+            String normalizedDate = rawDate;
+
+            // Nếu ngày có dấu "/", thì chuyển sang dạng yyyy-MM-dd
+            if (rawDate.contains("/")) {
+                try {
+                    LocalDate d = LocalDate.parse(rawDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    normalizedDate = d.format(DateTimeFormatter.ISO_LOCAL_DATE); // yyyy-MM-dd
+                } catch (Exception ex) {
+                    // Nếu lỗi parse thì giữ nguyên
+                    normalizedDate = rawDate;
+                }
+            }
+
+            return new Appointment(
+                    p[0].trim(),
+                    p[1].trim(),
+                    p[2].trim(),
+                    normalizedDate,
+                    p[4].trim(),
+                    p[5].trim(),
+                    p[6].trim(),
+                    Double.parseDouble(p[7].trim()),
+                    p[8].trim()
+            );
         } catch (Exception e) {
             return null;
         }

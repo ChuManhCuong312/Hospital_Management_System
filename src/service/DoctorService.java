@@ -2,189 +2,362 @@ package service;
 
 import exception.InvalidDataException;
 import model.Doctor;
-import util.FileUtil;
-import util.InputUtil;
 import util.Validator;
+import util.FileUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DoctorService {
-    private static final String FILE_PATH = "data/doctors.txt";
 
-    public List<Doctor> getAll() {
-        List<String> lines = FileUtil.readFile(FILE_PATH);
-        List<Doctor> list = new ArrayList<>();
-        for (String l : lines) {
-            Doctor d = Doctor.fromString(l);
-            if (d != null) list.add(d);
-        }
-        return list;
+    private List<Doctor> doctors = new ArrayList<>();
+    private final String fileName = "data/doctors.txt";
+    private final Scanner sc = new Scanner(System.in);
+
+    public DoctorService() {
+        loadFromFile();
     }
 
-    private void saveAll(List<Doctor> list) {
-        List<String> lines = new ArrayList<>();
-        for (Doctor d : list) lines.add(d.toDataString());
-        FileUtil.writeFile(FILE_PATH, lines);
-    }
-
-    // Thêm bác sĩ (interactive)
+    // --- Thêm bác sĩ ---
     public void addDoctor() {
         try {
-            System.out.println("===== THÊM BÁC SĨ =====");
-            String id = InputUtil.nhapChuoi("Nhập mã bác sĩ: ");
-            Validator.checkNotEmpty(id, "Mã bác sĩ không được để trống!");
-            if (findById(id) != null) throw new InvalidDataException("Mã bác sĩ đã tồn tại!");
-
-            String name = InputUtil.nhapChuoi("Nhập họ tên: ");
-            Validator.checkNotEmpty(name, "Tên không được để trống!");
-
-            String specialty = InputUtil.nhapChuoi("Nhập chuyên khoa: ");
-            Validator.checkNotEmpty(specialty, "Chuyên khoa không được để trống!");
-
-            String phone = InputUtil.nhapChuoi("Nhập số điện thoại: ");
-            if (!phone.isEmpty()) Validator.checkPhone(phone);
-
-            String email = InputUtil.nhapChuoi("Nhập email: ");
-            if (!email.isEmpty()) Validator.checkEmail(email);
-
-            String gender = InputUtil.nhapChuoi("Nhập giới tính (Nam/Nữ): ");
-            if (!gender.isEmpty()) Validator.checkGender(gender);
-
-            int age = InputUtil.nhapSoNguyen("Nhập tuổi: ");
-            if (age > 0) Validator.checkPositive(age, "Tuổi phải lớn hơn 0!");
-
-            String department = InputUtil.nhapChuoi("Nhập khoa/phòng: ");
-            String status = InputUtil.nhapChuoi("Nhập trạng thái: ");
-
-            Doctor d = new Doctor(id, name, specialty, phone, email, gender, age, department, status);
-            FileUtil.appendToFile(FILE_PATH, d.toDataString());
-            System.out.println("Đã thêm bác sĩ: " + name);
+            Doctor d = inputDoctor();
+            if (d == null) return;
+            doctors.add(d);
+            saveToFile();
+            System.out.println("Thêm thành công.");
         } catch (InvalidDataException e) {
-            System.out.println("Lỗi: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Lỗi khi thêm bác sĩ: " + e.getMessage());
+            System.out.println("Lỗi nhập liệu: " + e.getMessage());
         }
     }
 
-    // Thêm bác sĩ từ object (non-interactive)
-    public void addDoctor(Doctor d) {
-        try {
-            Validator.checkNotEmpty(d.getId(), "Mã bác sĩ không được để trống!");
-            if (findById(d.getId()) != null) throw new InvalidDataException("Mã bác sĩ đã tồn tại!");
-            Validator.checkNotEmpty(d.getName(), "Tên không được để trống!");
-            Validator.checkNotEmpty(d.getSpecialty(), "Chuyên khoa không được để trống!");
-            if (d.getPhone() != null && !d.getPhone().isEmpty()) Validator.checkPhone(d.getPhone());
-            if (d.getEmail() != null && !d.getEmail().isEmpty()) Validator.checkEmail(d.getEmail());
-            FileUtil.appendToFile(FILE_PATH, d.toDataString());
-            System.out.println("Đã thêm bác sĩ: " + d.getName());
-        } catch (InvalidDataException e) {
-            System.out.println("Lỗi: " + e.getMessage());
-        }
-    }
-
-    public void viewAll() {
-        List<Doctor> list = getAll();
-        if (list.isEmpty()) {
-            System.out.println("Không có bác sĩ nào!");
+    // --- Cập nhật bác sĩ ---
+    public void updateDoctor() {
+        viewAll();
+        System.out.print("Nhập mã BS cần sửa: ");
+        String ma = sc.nextLine().trim().toUpperCase();
+        Doctor old = findByDoctorId(ma);
+        if (old == null) {
+            System.out.println("Không tìm thấy mã BS.");
             return;
         }
-        System.out.println("===========================================================================================================================================================");
-        System.out.printf("| %-8s | %-20s | %-15s | %-12s | %-25s | %-10s | %-4s | %-20s |  %-12s |%n",
-                "Mã BS", "Họ tên", "Chuyên khoa", "SĐT", "Email", "Giới tính", "Tuổi", "Khoa", "Trạng thái");
-        System.out.println("===========================================================================================================================================================");
-        for (Doctor d : list) {
-            System.out.printf("| %-8s | %-20s | %-15s | %-12s | %-25s | %-10s | %-4d | %-20s | %-12s |%n",
-                    d.getId(), d.getName(), d.getSpecialty(), d.getPhone(), d.getEmail(),
-                    d.getGender(), d.getAge(), d.getDepartment(), d.getStatus());
+        Doctor updated = inputDoctorForUpdate(old);
+        doctors.set(doctors.indexOf(old), updated);
+        saveToFile();
+        System.out.println("Cập nhật thành công.");
+    }
+
+    // --- Xóa bác sĩ ---
+    public void deleteDoctor() {
+        viewAll();
+        System.out.print("Nhập mã BS cần xóa: ");
+        String ma = sc.nextLine().trim().toUpperCase();
+        Doctor d = findByDoctorId(ma);
+        if (d == null) {
+            System.out.println("Không tìm thấy mã BS.");
+            return;
         }
-        System.out.println("===========================================================================================================================================================");
+        doctors.remove(d);
+        saveToFile();
+        System.out.println("Xóa thành công.");
     }
 
-    public Doctor findById(String id) {
-        for (Doctor d : getAll()) if (d.getId().equalsIgnoreCase(id)) return d;
-        return null;
+    // --- Xem danh sách ---
+    public void viewAll() {
+        if (doctors.isEmpty()) {
+            System.out.println("Danh sách trống.");
+            return;
+        }
+        printHeader();
+        doctors.forEach(this::printDoctor);
     }
 
-    // Cập nhật bác sĩ (interactive)
-    public void updateDoctor() {
+    // --- Tìm kiếm ---
+    public void searchDoctor() {
+        System.out.println("1. Tìm theo Mã");
+        System.out.println("2. Tìm theo Tên");
+        System.out.println("3. Tìm theo Chuyên khoa");
+        System.out.print("Chọn: ");
+        int choice;
         try {
-            System.out.println("===== CẬP NHẬT BÁC SĨ =====");
-            String id = InputUtil.nhapChuoi("Nhập mã bác sĩ cần cập nhật: ");
-            List<Doctor> list = getAll();
-            boolean found = false;
-            for (Doctor d : list) {
-                if (d.getId().equalsIgnoreCase(id)) {
-                    String name = InputUtil.nhapChuoi("Tên (" + d.getName() + "): ");
-                    String specialty = InputUtil.nhapChuoi("Chuyên khoa (" + d.getSpecialty() + "): ");
-                    String phone = InputUtil.nhapChuoi("SĐT (" + d.getPhone() + "): ");
-                    String email = InputUtil.nhapChuoi("Email (" + d.getEmail() + "): ");
-                    String gender = InputUtil.nhapChuoi("Giới tính (" + d.getGender() + "): ");
-                    int age = InputUtil.nhapSoNguyen("Tuổi (" + d.getAge() + "): ");
-                    String department = InputUtil.nhapChuoi("Khoa (" + d.getDepartment() + "): ");
-                    String status = InputUtil.nhapChuoi("Trạng thái (" + d.getStatus() + "): ");
+            choice = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Vui lòng nhập số hợp lệ.");
+            return;
+        }
 
-                    if (!name.isEmpty()) d.setName(name);
-                    if (!specialty.isEmpty()) d.setSpecialty(specialty);
-                    if (!phone.isEmpty()) { Validator.checkPhone(phone); d.setPhone(phone); }
-                    if (!email.isEmpty()) { Validator.checkEmail(email); d.setEmail(email); }
-                    if (!gender.isEmpty()) d.setGender(gender);
-                    if (age > 0) d.setAge(age);
-                    if (!department.isEmpty()) d.setDepartment(department);
-                    if (!status.isEmpty()) d.setStatus(status);
-
-                    found = true;
-                    break;
+        switch (choice) {
+            case 1 -> {
+                System.out.print("Nhập mã BS: ");
+                String ma = sc.nextLine().trim().toUpperCase();
+                Doctor d = findByDoctorId(ma);
+                if (d == null) System.out.println("Không tìm thấy.");
+                else {
+                    printHeader();
+                    printDoctor(d);
                 }
             }
-            if (found) {
-                saveAll(list);
-                System.out.println("Đã cập nhật bác sĩ: " + id);
-            } else System.out.println("Không tìm thấy bác sĩ!");
-        } catch (InvalidDataException e) {
-            System.out.println("Lỗi: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Lỗi khi cập nhật bác sĩ: " + e.getMessage());
-        }
-    }
-
-    public void deleteDoctor() {
-        try {
-            System.out.println("===== XÓA BÁC SĨ =====");
-            String id = InputUtil.nhapChuoi("Nhập mã bác sĩ cần xóa: ");
-            List<Doctor> list = getAll();
-            boolean removed = list.removeIf(d -> d.getId().equalsIgnoreCase(id));
-            if (removed) {
-                saveAll(list);
-                System.out.println("Đã xóa bác sĩ: " + id);
-            } else System.out.println("Không tìm thấy bác sĩ!");
-        } catch (Exception e) {
-            System.out.println("Lỗi khi xóa bác sĩ: " + e.getMessage());
-        }
-    }
-
-    // Tìm kiếm bác sĩ (mã / tên / chuyên khoa)
-    public void searchDoctor() {
-        try {
-            System.out.println("===== TÌM KIẾM BÁC SĨ =====");
-            System.out.println("1. Theo mã");
-            System.out.println("2. Theo tên");
-            System.out.println("3. Theo chuyên khoa");
-            int c = InputUtil.nhapLuaChon("Chọn: ", 1, 3);
-            String key = InputUtil.nhapChuoi("Nhập từ khóa: ");
-            List<Doctor> res = new ArrayList<>();
-            for (Doctor d : getAll()) {
-                if (c == 1 && d.getId().equalsIgnoreCase(key)) res.add(d);
-                else if (c == 2 && d.getName().toLowerCase().contains(key.toLowerCase())) res.add(d);
-                else if (c == 3 && d.getSpecialty().toLowerCase().contains(key.toLowerCase())) res.add(d);
+            case 2 -> {
+                System.out.print("Nhập tên: ");
+                String name = sc.nextLine().trim();
+                List<Doctor> list = findByName(name);
+                showFiltered(list);
             }
-            if (res.isEmpty()) System.out.println("Không tìm thấy bác sĩ phù hợp!");
+            case 3 -> {
+                System.out.print("Nhập chuyên khoa: ");
+                String ck = sc.nextLine().trim();
+                List<Doctor> list = findBySpecialty(ck);
+                showFiltered(list);
+            }
+            default -> System.out.println("Chọn sai.");
+        }
+    }
+    // --- Lọc ---
+    public void filter() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập chuyên khoa (Enter để bỏ qua): ");
+        String specialty = sc.nextLine().trim();
+        System.out.print("Nhập kinh nghiệm tối thiểu (Enter để bỏ qua): ");
+        String knInput = sc.nextLine().trim();
+        Integer minExperience = knInput.isEmpty() ? null : Integer.parseInt(knInput);
+
+        List<Doctor> filtered = doctors.stream()
+                .filter(d -> (specialty.isBlank() || d.getSpecialty().equalsIgnoreCase(specialty)))
+                .filter(d -> (minExperience == null || d.getExperience() >= minExperience))
+                .toList();
+
+        if (filtered.isEmpty()) {
+            System.out.println("Không tìm thấy.");
+        } else {
+            printHeader();
+            filtered.forEach(this::printDoctor);
+        }
+    }
+
+
+
+    // --- Xuất file ---
+    public void exportToFile() {
+        System.out.print("Nhập tên file xuất: ");
+        String fileName = sc.nextLine().trim();
+        List<String> lines = doctors.stream().map(Doctor::toDataString).toList();
+        FileUtil.writeFile(fileName, lines);
+        System.out.println("Xuất file thành công: " + fileName);
+    }
+
+    // --- Nhập file ---
+    public void importFromFile() {
+        System.out.print("Nhập tên file cần nhập: ");
+        String fileName = sc.nextLine().trim();
+
+        List<String> lines = FileUtil.readFile(fileName);
+        if (lines.isEmpty()) {
+            System.out.println("File rỗng hoặc không tồn tại.");
+            return;
+        }
+
+        int added = 0, skipped = 0;
+        for (String line : lines) {
+            Doctor d = Doctor.fromString(line);
+            if (d == null) { skipped++; continue; }
+            boolean exists = findByDoctorId(d.getId()) != null;
+            if (exists) { skipped++; continue; }
+            doctors.add(d);
+            added++;
+        }
+        saveToFile();
+        System.out.printf("Import hoàn tất: %d thêm mới, %d bị lỗi.%n", added, skipped);
+    }
+
+    // --- Filter hỗ trợ menu ---
+    private void showFiltered(List<Doctor> list) {
+        if (list.isEmpty()) System.out.println("Không tìm thấy.");
+        else {
+            printHeader();
+            list.forEach(this::printDoctor);
+        }
+    }
+
+    // --- Input helper ---
+    private Doctor inputDoctor() throws InvalidDataException {
+        String ma, ten, ck, bc, sdt, email, lich, tt;
+        int kn;
+
+        // Mã BS
+        while (true) {
+            System.out.print("Mã BS (D + số): ");
+            ma = sc.nextLine().trim().toUpperCase();
+            if (!ma.matches("D\\d+")) {
+                System.out.println("Mã không hợp lệ (vd: D001)");
+                continue;
+            }
+            if (findByDoctorId(ma) != null) {
+                System.out.println("Mã đã tồn tại.");
+                continue;
+            }
+            break;
+        }
+
+        // Tên
+        System.out.print("Tên: ");
+        ten = sc.nextLine().trim();
+        Validator.checkNotEmpty(ten, "Tên không được để trống");
+
+        // Chuyên khoa
+        System.out.print("Chuyên khoa: ");
+        ck = sc.nextLine().trim();
+        Validator.checkNotEmpty(ck, "Chuyên khoa không được để trống");
+
+        // Bằng cấp
+        while (true) {
+            System.out.print("Bằng cấp (CKI/CKII): ");
+            bc = sc.nextLine().trim().toUpperCase();
+            if (!(bc.equals("CKI") || bc.equals("CKII"))) System.out.println("Bằng cấp không hợp lệ.");
+            else break;
+        }
+
+        // Kinh nghiệm
+        while (true) {
+            System.out.print("Kinh nghiệm (năm): ");
+            try {
+                kn = Integer.parseInt(sc.nextLine().trim());
+                if (kn < 0) System.out.println("Kinh nghiệm >= 0.");
+                else break;
+            } catch (NumberFormatException e) {
+                System.out.println("Nhập số nguyên hợp lệ.");
+            }
+        }
+
+        // SĐT
+        while (true) {
+            System.out.print("SĐT (10 số): ");
+            String phone = sc.nextLine().trim();
+            Validator.checkPhone(phone);
+            boolean exists = doctors.stream().anyMatch(d -> d.getPhone().equals(phone));
+            if (exists) System.out.println("SĐT đã tồn tại.");
             else {
-                System.out.println("Kết quả:");
-                for (Doctor d : res) System.out.println(d.toDataString());
+                sdt = phone;
+                break;
             }
-        } catch (Exception e) {
-            System.out.println("Lỗi khi tìm kiếm bác sĩ: " + e.getMessage());
         }
+
+        // Email
+        while (true) {
+            System.out.print("Email: ");
+            String emailInput = sc.nextLine().trim();
+            Validator.checkEmail(emailInput);
+            boolean exists = doctors.stream().anyMatch(d -> d.getEmail().equalsIgnoreCase(emailInput));
+            if (exists) System.out.println("Email đã tồn tại.");
+            else {
+                email = emailInput;
+                break;
+            }
+        }
+
+        // Lịch làm việc
+        while (true) {
+            System.out.print("Lịch làm việc (HH:mm-HH:mm): ");
+            lich = sc.nextLine().trim();
+            String[] parts = lich.split("-");
+            if (parts.length != 2) {
+                System.out.println("Sai định dạng.");
+                continue;
+            }
+            try {
+                Validator.checkTime(parts[0]);
+                Validator.checkTime(parts[1]);
+                break;
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+        // Trạng thái
+        System.out.print("Trạng thái: ");
+        tt = sc.nextLine().trim();
+
+        return new Doctor(ma, ten, ck, bc, kn, sdt, email, lich, tt);
+    }
+
+
+    private Doctor inputDoctorForUpdate(Doctor old) {
+        System.out.println("=== CẬP NHẬT (Enter để giữ nguyên) ===");
+
+        System.out.print("Tên [" + old.getName() + "]: ");
+        String name = sc.nextLine().trim();
+        if (name.isEmpty()) name = old.getName();
+
+        System.out.print("Chuyên khoa [" + old.getSpecialty() + "]: ");
+        String ck = sc.nextLine().trim();
+        if (ck.isEmpty()) ck = old.getSpecialty();
+
+        System.out.print("Bằng cấp [" + old.getDegree() + "]: ");
+        String bc = sc.nextLine().trim();
+        if (bc.isEmpty()) bc = old.getDegree();
+
+        System.out.print("Kinh nghiệm [" + old.getExperience() + "]: ");
+        String knInput = sc.nextLine().trim();
+        int kn = knInput.isEmpty() ? old.getExperience() : Integer.parseInt(knInput);
+
+        System.out.print("SĐT [" + old.getPhone() + "]: ");
+        String sdt = sc.nextLine().trim();
+        if (sdt.isEmpty()) sdt = old.getPhone();
+
+        System.out.print("Email [" + old.getEmail() + "]: ");
+        String email = sc.nextLine().trim();
+        if (email.isEmpty()) email = old.getEmail();
+
+        System.out.print("Lịch làm việc [" + old.getWorkSchedule() + "]: ");
+        String lich = sc.nextLine().trim();
+        if (lich.isEmpty()) lich = old.getWorkSchedule();
+
+        System.out.print("Trạng thái [" + old.getStatus() + "]: ");
+        String tt = sc.nextLine().trim();
+        if (tt.isEmpty()) tt = old.getStatus();
+
+        return new Doctor(old.getId(), name, ck, bc, kn, sdt, email, lich, tt);
+    }
+
+    // --- Helper tìm kiếm ---
+    private Doctor findByDoctorId(String doctorId) {
+        return doctors.stream().filter(d -> d.getId().equalsIgnoreCase(doctorId)).findFirst().orElse(null);
+    }
+
+    private List<Doctor> findByName(String name) {
+        return doctors.stream().filter(d -> d.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
+    }
+
+    private List<Doctor> findBySpecialty(String ck) {
+        return doctors.stream().filter(d -> d.getSpecialty().equalsIgnoreCase(ck)).collect(Collectors.toList());
+    }
+
+    // --- In danh sách ---
+    private void printHeader() {
+        String line = "+--------+----------------------+----------------------+--------+-----+--------------+-----------------------2--------+----------------+-------------------+";
+        System.out.println(line);
+        System.out.printf("| %-6s | %-20s | %-20s | %-6s | %-3s | %-12s | %-30s | %-13s | %-17s |%n",
+                "Mã BS", "Tên", "Chuyên khoa", "BC", "KN", "SĐT", "Email", "Lịch", "Trạng thái");
+        System.out.println(line);
+    }
+
+    private void printDoctor(Doctor d) {
+        System.out.printf("| %-6s | %-20s | %-20s | %-6s | %-3d | %-12s | %-30s | %-13s | %-17s |%n",
+                d.getId(), d.getName(), d.getSpecialty(), d.getDegree(),
+                d.getExperience(), d.getPhone(), d.getEmail(), d.getWorkSchedule(), d.getStatus());
+    }
+
+    // --- File ---
+    private void loadFromFile() {
+        doctors.clear();
+        for (String line : FileUtil.readFile(fileName)) {
+            Doctor d = Doctor.fromString(line);
+            if (d != null) doctors.add(d);
+        }
+    }
+
+    private void saveToFile() {
+        List<String> lines = doctors.stream().map(Doctor::toDataString).toList();
+        FileUtil.writeFile(fileName, lines);
     }
 }
