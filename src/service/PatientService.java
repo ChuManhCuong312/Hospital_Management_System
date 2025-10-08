@@ -122,6 +122,76 @@ public class PatientService {
 
 
     /**
+     * Tìm bệnh nhân theo địa chỉ
+     */
+    public List<Patient> findByAddress(String address) {
+        if (address == null || address.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return getAllPatients().stream()
+                .filter(patient -> patient.getAddress() != null && 
+                         patient.getAddress().toLowerCase().contains(address.toLowerCase().trim()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Hiển thị thông tin chi tiết của một bệnh nhân
+     */
+    public void showPatientDetails(Patient patient) {
+        if (patient == null) {
+            System.out.println("Không tìm thấy thông tin bệnh nhân!");
+            return;
+        }
+
+        System.out.println("\n=== THÔNG TIN CHI TIẾT BỆNH NHÂN ===");
+        System.out.println("┌─────────────────────────────────────────────────────────────┐");
+        System.out.printf("│ ID: %-55s │%n", patient.getId());
+        System.out.printf("│ Họ tên: %-50s │%n", patient.getName());
+        System.out.printf("│ Tuổi: %-52s │%n", patient.getAge());
+        System.out.printf("│ Giới tính: %-47s │%n", patient.getGender());
+        System.out.printf("│ Địa chỉ: %-49s │%n", patient.getAddress().isEmpty() ? "Chưa cập nhật" : patient.getAddress());
+        System.out.printf("│ Số điện thoại: %-43s │%n", patient.getPhone().isEmpty() ? "Chưa cập nhật" : patient.getPhone());
+        System.out.printf("│ Chẩn đoán: %-47s │%n", patient.getDiagnosis());
+        System.out.printf("│ Nhóm máu: %-48s │%n", patient.getBloodGroup().isEmpty() ? "Chưa cập nhật" : patient.getBloodGroup());
+        System.out.printf("│ ID bác sĩ: %-46s │%n", patient.getDoctorId().isEmpty() ? "Chưa phân công" : patient.getDoctorId());
+        System.out.printf("│ Trạng thái: %-45s │%n", patient.getStatus().isEmpty() ? "Chưa cập nhật" : patient.getStatus());
+        System.out.println("└─────────────────────────────────────────────────────────────┘");
+    }
+
+    /**
+     * Hiển thị kết quả tìm kiếm
+     */
+    public void showSearchResults(List<Patient> patients, String searchType) {
+        if (patients.isEmpty()) {
+            System.out.println("Không tìm thấy bệnh nhân nào với tiêu chí: " + searchType);
+            return;
+        }
+
+        System.out.println("\n=== KẾT QUẢ TÌM KIẾM: " + searchType.toUpperCase() + " ===");
+        System.out.println("+------+----------------+-----+-----------+----------------------+----------------+----------+------+----------+");
+        System.out.println("|  ID  |     Họ tên     | Tuổi| Giới tính |      Chẩn đoán       |    Địa chỉ     |   SĐT    | Nhóm máu| Trạng thái|");
+        System.out.println("+------+----------------+-----+-----------+----------------------+----------------+----------+------+----------+");
+
+        for (Patient patient : patients) {
+            System.out.printf("| %-4s | %-14s | %-3d | %-9s | %-20s | %-14s | %-8s | %-4s | %-8s |%n",
+                    patient.getId(),
+                    patient.getName(),
+                    patient.getAge(),
+                    patient.getGender(),
+                    patient.getDiagnosis(),
+                    patient.getAddress().isEmpty() ? "N/A" : patient.getAddress(),
+                    patient.getPhone().isEmpty() ? "N/A" : patient.getPhone(),
+                    patient.getBloodGroup().isEmpty() ? "N/A" : patient.getBloodGroup(),
+                    patient.getStatus().isEmpty() ? "N/A" : patient.getStatus());
+        }
+
+        System.out.println("+------+----------------+-----+-----------+----------------------+----------------+----------+------+----------+");
+        System.out.println("Tìm thấy " + patients.size() + " bệnh nhân");
+    }
+
+
+    /**
      * Tìm bệnh nhân theo ID
      */
     public Patient findById(String id) {
