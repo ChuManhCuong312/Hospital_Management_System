@@ -297,4 +297,57 @@ public class PatientService {
             return "Lỗi khi cập nhật: " + e.getMessage();
         }
     }
+
+    // ==================== DELETE OPERATIONS ====================
+
+    /**
+     * Xóa bệnh nhân theo ID
+     */
+    public void deletePatient(String id) {
+        List<Patient> patients = getAllPatients();
+        boolean removed = patients.removeIf(patient -> patient.getId().equalsIgnoreCase(id));
+
+        if (removed) {
+            saveAll(patients);
+            System.out.println("Đã xóa bệnh nhân ID: " + id);
+        } else {
+            System.out.println("Không tìm thấy bệnh nhân có ID: " + id);
+        }
+    }
+
+    /**
+     * Xóa bệnh nhân từ input người dùng
+     */
+    public String deletePatientFromInput(Scanner scanner) {
+        try {
+            System.out.println("\n=== XÓA BỆNH NHÂN ===");
+
+            String id = InputUtil.inputString("Nhập ID bệnh nhân cần xóa: ");
+            Patient patient = findById(id);
+
+            if (patient == null) {
+                return "Không tìm thấy bệnh nhân có ID: " + id;
+            }
+
+            System.out.println("Thông tin bệnh nhân sẽ bị xóa:");
+            System.out.println("ID: " + patient.getId());
+            System.out.println("Họ tên: " + patient.getName());
+            System.out.println("Tuổi: " + patient.getAge());
+            System.out.println("Giới tính: " + patient.getGender());
+            System.out.println("Chẩn đoán: " + patient.getDiagnosis());
+
+            String confirm = InputUtil.inputString("\nBạn có chắc chắn muốn xóa? (yes/no): ");
+            if ("yes".equalsIgnoreCase(confirm) || "y".equalsIgnoreCase(confirm)) {
+                deletePatient(id);
+                return "Xóa bệnh nhân thành công!";
+            } else {
+                return "Hủy bỏ việc xóa bệnh nhân";
+            }
+
+        } catch (Exception e) {
+            return "Lỗi khi xóa: " + e.getMessage();
+        }
+    }
+
+
 }
